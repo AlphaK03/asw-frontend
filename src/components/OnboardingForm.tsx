@@ -13,7 +13,7 @@ export default function OnboardingForm() {
   const [departmentId, setDepartmentId] = useState<number | null>(null);
 
   const fetchDepartments = async () => {
-    const res = await axios.get("http://localhost:8080/api/departments");
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/departments`);
     setDepartments(res.data);
   };
 
@@ -22,7 +22,7 @@ export default function OnboardingForm() {
     if (!title.trim() || !description.trim() || !departmentId) return;
 
     try {
-      await axios.post("http://localhost:8080/api/onboardings", {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/onboardings`, {
         title,
         description,
         department: { id: departmentId },

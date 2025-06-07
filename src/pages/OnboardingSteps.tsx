@@ -1,5 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+import.meta.env.VITE_API_URL
+
 import axios from "axios";
 import {
     DragDropContext,
@@ -41,7 +44,7 @@ export default function OnboardingSteps() {
 
     const fetchSteps = async () => {
         try {
-            const res = await axios.get(`/api/steps/by-onboarding/${onboardingId}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/steps/by-onboarding/${onboardingId}`);
             const sorted = Array.isArray(res.data)
                 ? res.data.sort((a, b) => a.orderNumber - b.orderNumber)
                 : [];
@@ -55,7 +58,7 @@ export default function OnboardingSteps() {
 
     const fetchOnboarding = async () => {
         try {
-            const res = await axios.get(`/api/onboardings/${onboardingId}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/onboardings/${onboardingId}`);
             setOnboarding(res.data);
         } catch (err) {
             console.error("Error fetching onboarding", err);
@@ -69,12 +72,13 @@ export default function OnboardingSteps() {
         }
 
         try {
-            await axios.post("/api/steps", {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/steps`, {
                 description,
                 mediaUrl,
                 orderNumber,
                 onboarding: { id: onboardingId }
             });
+
             setDescription("");
             setMediaUrl("");
             setOrderNumber(steps.length + 1);
@@ -87,7 +91,7 @@ export default function OnboardingSteps() {
 
     const handleDelete = async (id: number) => {
         try {
-            await axios.delete(`/api/steps/${id}`);
+            await axios.delete(`${import.meta.env.VITE_API_URL}/api/steps/${id}`);
             setSteps((prev) => prev.filter((s) => s.id !== id));
         } catch (err) {
             console.error("Error deleting step", err);
@@ -109,7 +113,7 @@ export default function OnboardingSteps() {
         setSteps(updated);
 
         try {
-            await axios.put("/api/steps/reorder", updated);
+            await axios.put(`${import.meta.env.VITE_API_URL}/api/steps/reorder`, updated);
         } catch (err) {
             console.error("Error updating step order", err);
         }

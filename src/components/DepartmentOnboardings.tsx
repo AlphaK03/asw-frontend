@@ -32,7 +32,7 @@ export default function DepartmentOnboardings() {
             setError("");
 
             axios
-                .get(`/api/onboardings/by-department/${id}`)
+                .get(`${import.meta.env.VITE_API_URL}/api/onboardings/by-department/${id}`)
                 .then((res) => setOnboardings(res.data))
                 .catch((err) => {
                     console.error("Error loading onboardings", err);
@@ -41,7 +41,7 @@ export default function DepartmentOnboardings() {
                 .finally(() => setIsLoading(false));
 
             axios
-                .get(`/api/departments/${id}`)
+                .get(`${import.meta.env.VITE_API_URL}/api/departments/${id}`)
                 .then((res) => setDepartment(res.data))
                 .catch((err) => {
                     console.error("Error loading department", err);
@@ -62,7 +62,7 @@ export default function DepartmentOnboardings() {
 
         try {
             const updated = { ...editing, title: editTitle, description: editDescription };
-            await axios.put(`/api/onboardings/${editing.id}`, updated);
+            await axios.put(`${import.meta.env.VITE_API_URL}/api/onboardings/${editing.id}`, updated);
             setOnboardings((prev) =>
                 prev.map((o) => (o.id === editing.id ? updated : o))
             );
@@ -112,7 +112,7 @@ export default function DepartmentOnboardings() {
                                     </div>
                                     <div className="flex gap-2 text-sm">
                                         <button
-                                            onClick={() => navigate(`/onboarding/${ob.id}/steps`)}
+                                            onClick={() => navigate(`${import.meta.env.VITE_API_URL}/onboarding/${ob.id}/steps`)}
                                             className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg shadow"
                                         >
                                             ➕ Steps

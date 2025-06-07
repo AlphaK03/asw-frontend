@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export function useAuth() {
     const [role, setRole] = useState<string | null>(() => {
@@ -7,7 +7,7 @@ export function useAuth() {
 
     const login = async (username: string, password: string): Promise<boolean> => {
         try {
-            const response = await fetch("http://localhost:8080/api/auth/login", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password }),

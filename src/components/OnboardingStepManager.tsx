@@ -33,12 +33,12 @@ export default function OnboardingStepManager() {
     }, [selectedOnboardingId]);
 
     const fetchOnboardings = async () => {
-        const res = await axios.get("http://localhost:8080/api/onboardings");
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/onboardings`);
         setOnboardings(res.data);
     };
 
     const fetchSteps = async (onboardingId: number) => {
-        const res = await axios.get(`http://localhost:8080/api/steps/by-onboarding/${onboardingId}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/steps/by-onboarding/${onboardingId}`);
         setSteps(res.data);
     };
 
@@ -47,7 +47,7 @@ export default function OnboardingStepManager() {
         if (!newDescription.trim() || !selectedOnboardingId) return;
 
         try {
-            await axios.post("http://localhost:8080/api/steps", {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/steps`, {
                 description: newDescription,
                 mediaUrl: newMediaUrl,
                 orderNumber: newOrder,
@@ -64,7 +64,7 @@ export default function OnboardingStepManager() {
 
     const handleDelete = async (id: number) => {
         try {
-            await axios.delete(`http://localhost:8080/api/steps/${id}`);
+            await axios.delete(`${import.meta.env.VITE_API_URL}/api/steps/${id}`);
             if (selectedOnboardingId) fetchSteps(selectedOnboardingId);
         } catch (err) {
             console.error("Error deleting step", err);

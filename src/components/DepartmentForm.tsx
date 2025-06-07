@@ -15,7 +15,7 @@ export default function DepartmentForm() {
 
     const fetchDepartments = async () => {
         try {
-            const res = await axios.get("http://localhost:8080/api/departments");
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/departments`);
             setDepartments(res.data);
         } catch (err) {
             console.error("Error fetching departments", err);
@@ -27,7 +27,7 @@ export default function DepartmentForm() {
         if (!name.trim()) return;
 
         try {
-            await axios.post("http://localhost:8080/api/departments", { name });
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/departments`, { name });
             setName("");
             fetchDepartments();
         } catch (err) {
@@ -38,7 +38,7 @@ export default function DepartmentForm() {
     const handleUpdate = async () => {
         if (!editingDept || !editingDept.name.trim()) return;
         try {
-            await axios.put(`http://localhost:8080/api/departments/${editingDept.id}`, { name: editingDept.name });
+            await axios.put(`${import.meta.env.VITE_API_URL}/api/departments/${editingDept.id}`, { name: editingDept.name });
             setEditingDept(null);
             fetchDepartments();
         } catch (err) {
@@ -48,7 +48,7 @@ export default function DepartmentForm() {
 
     const handleDelete = async (id: number) => {
         try {
-            await axios.delete(`http://localhost:8080/api/departments/${id}`);
+            await axios.delete(`${import.meta.env.VITE_API_URL}/api/departments/${id}`);
             fetchDepartments();
         } catch (err) {
             console.error("Error deleting department", err);

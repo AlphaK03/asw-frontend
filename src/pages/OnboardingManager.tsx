@@ -38,7 +38,7 @@ export default function OnboardingManager() {
 
     const fetchOnboardings = async () => {
         try {
-            const res = await axios.get("http://localhost:8080/api/onboardings");
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/onboardings`);
             const realArray = Array.isArray(res.data)
                 ? res.data
                 : res.data.content ?? res.data.data ?? [];
@@ -52,7 +52,7 @@ export default function OnboardingManager() {
 
     const fetchDepartments = async () => {
         try {
-            const res = await axios.get("http://localhost:8080/api/departments");
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/departments`);
             if (Array.isArray(res.data)) {
                 setDepartments(res.data);
             } else {
@@ -70,7 +70,7 @@ export default function OnboardingManager() {
         if (!newTitle.trim() || !selectedDepartmentId) return;
 
         try {
-            await axios.post("http://localhost:8080/api/onboardings", {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/onboardings`, {
                 title: newTitle,
                 description: newDescription,
                 department: { id: selectedDepartmentId }
@@ -86,7 +86,7 @@ export default function OnboardingManager() {
 
     const handleDelete = async (id: number) => {
         try {
-            await axios.delete(`http://localhost:8080/api/onboardings/${id}`);
+            await axios.delete(`${import.meta.env.VITE_API_URL}/api/onboardings/${id}`);
             fetchOnboardings();
         } catch (err) {
             console.error("Error deleting onboarding", err);

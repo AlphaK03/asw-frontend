@@ -16,7 +16,7 @@ export default function EmployeeOnboardingSteps() {
     useEffect(() => {
         if (id) {
             axios
-                .get(`/api/steps/by-onboarding/${id}`)
+                .get(`${import.meta.env.VITE_API_URL}/api/steps/by-onboarding/${id}`)
                 .then((res) => {
                     const sorted = res.data.sort((a: Step, b: Step) => a.orderNumber - b.orderNumber);
                     setSteps(sorted);

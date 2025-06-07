@@ -21,17 +21,19 @@ export default function EmployeeDashboard() {
 
     useEffect(() => {
         axios
-            .get("/api/departments")
+            .get(`${import.meta.env.VITE_API_URL}/api/departments`)
             .then((res) => setDepartments(res.data))
             .catch((err) => console.error("Error loading departments", err));
+
     }, []);
 
     useEffect(() => {
         if (selectedDept) {
             axios
-                .get(`/api/onboardings/by-department/${selectedDept}`)
+                .get(`${import.meta.env.VITE_API_URL}/api/onboardings/by-department/${selectedDept}`)
                 .then((res) => setOnboardings(res.data))
                 .catch((err) => console.error("Error loading onboardings", err));
+
         } else {
             setOnboardings([]);
         }
