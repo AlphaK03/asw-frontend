@@ -112,7 +112,7 @@ export default function DepartmentOnboardings() {
                                     </div>
                                     <div className="flex gap-2 text-sm">
                                         <button
-                                            onClick={() => navigate(`${import.meta.env.VITE_API_URL}/onboarding/${ob.id}/steps`)}
+                                            onClick={() => navigate(`/onboarding/${ob.id}/steps`)}
                                             className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg shadow"
                                         >
                                             ➕ Steps
