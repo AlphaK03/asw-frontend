@@ -164,7 +164,7 @@ export default function OnboardingSteps() {
                                 <button
                                     onClick={async () => {
                                         try {
-                                            await axios.put(`/api/onboardings/${onboardingId}`, onboarding);
+                                            await axios.put(`${import.meta.env.VITE_API_URL}/api/onboardings/${onboardingId}`, onboarding);
                                             setShowModal(false);
                                         } catch (err) {
                                             console.error("Error updating onboarding", err);
